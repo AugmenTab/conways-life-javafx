@@ -15,6 +15,7 @@
  */
 package edu.cnm.deepdive;
 
+import edu.cnm.deepdive.controller.MainController;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +38,8 @@ public class Life extends Application {
       Life.class.getPackageName().replace('.', '/') + "/strings";
   private static final String WINDOW_TITLE_KEY = "window_title";
 
+  private MainController controller;
+
   /**
    * Launches this JavaFX application by invoking the {@link #launch(String...)} method, passing
    * along any received command-line arguments.
@@ -52,7 +55,7 @@ public class Life extends Application {
     ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE);
     FXMLLoader fxmlLoader = new FXMLLoader(Life.class.getResource(LAYOUT_RESOURCE), bundle);
     Parent root = fxmlLoader.load();
-//    TODO Get reference to controller instance.
+    controller = fxmlLoader.getController();
     Scene scene = new Scene(root);
     stage.setTitle(bundle.getString(WINDOW_TITLE_KEY));
     stage.getIcons().add(new Image(Life.class.getResourceAsStream(ICON_RESOURCE)));
@@ -65,7 +68,7 @@ public class Life extends Application {
 
   @Override
   public void stop() throws Exception {
-    // TODO Stop any background processing.
+    controller.stop();
     super.stop();
   }
 
